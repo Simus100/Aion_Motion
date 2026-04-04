@@ -1,6 +1,10 @@
 node_modules
 dist
-.DS_Store
-.env
-
-out
+build
+public/*.mp4
+public/*.mp3
+out.mp4
+yt-dlp
+*.sh
+*.js
+!remotion.config.js
