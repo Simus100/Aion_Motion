@@ -1,25 +1,25 @@
 #!/bin/bash
 
-# Ensure the user has gcloud configured
+# Assicuriamoci che l'utente abbia gcloud configurato
 if ! command -v gcloud &> /dev/null
 then
-    echo "gcloud command could not be found. Please install Google Cloud SDK."
+    echo "Il comando gcloud non è stato trovato. Per favore installa il Google Cloud SDK."
     exit
 fi
 
 PROJECT_ID=$(gcloud config get-value project)
 if [ -z "$PROJECT_ID" ]; then
-    echo "No Google Cloud project configured. Please run 'gcloud config set project YOUR_PROJECT_ID'"
+    echo "Nessun progetto Google Cloud configurato. Esegui 'gcloud config set project IL_TUO_PROJECT_ID'"
     exit
 fi
 
 SERVICE_NAME="remotion-render-service"
-REGION="europe-west1" # Change this if you prefer another region
+REGION="europe-west1" # Cambia se preferisci un'altra regione
 
-echo "Deploying $SERVICE_NAME to Google Cloud Run in region $REGION..."
+echo "Deploy di $SERVICE_NAME su Google Cloud Run nella regione $REGION in corso..."
 
-# Submit the build to Cloud Build and deploy to Cloud Run
-# We use max instances to prevent high costs, and allocate adequate memory for video rendering.
+# Invia la build a Cloud Build e fai il deploy su Cloud Run
+# Usiamo un limite di istanze massime per prevenire costi alti e allochiamo 2GB di RAM per il rendering video.
 gcloud run deploy $SERVICE_NAME \
   --source . \
   --region $REGION \
@@ -29,4 +29,4 @@ gcloud run deploy $SERVICE_NAME \
   --max-instances 5 \
   --timeout 300s
 
-echo "Deployment complete! You can now send POST requests to your new service URL at the /render endpoint."
+echo "Deploy completato! Ora puoi inviare richieste POST all'URL del tuo nuovo servizio sull'endpoint /render."
