@@ -1,0 +1,18 @@
+◇ injecting env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+Remotion render service listening on port 8080
+Starting render process for composition: DynamicComposition
+Downloading Chrome Headless Shell https://www.remotion.dev/chrome-headless-shell
+Customize this behavior by adding a onBrowserDownload function to selectComposition().
+Downloading from: https://remotion.media/chromium-headless-shell-linux-x64-144.0.7559.20.zip?clearcache
+Downloading Chrome Headless Shell - 9.5 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 19.1 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 28.6 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 38.2 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 47.7 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 57.3 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 66.8 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 76.4 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 85.9 Mb/86.6 Mb
+Downloading Chrome Headless Shell - 86.6 Mb/86.6 Mb
+Rendering to /tmp/render-1775396191844.mp4 with 30 frames...
+Render complete! Sending file...
