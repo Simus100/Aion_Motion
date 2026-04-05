@@ -6,7 +6,7 @@ import { AiFocus } from "./AiFocus";
 import { Outro } from "./Outro";
 import { staticFile } from "remotion";
 
-export const AionNexusPromo = () => {
+export const AionNexusPromo = ({ theme = "default" }) => {
   const { width } = useVideoConfig();
   // Using width to force re-evaluation of responsive layout inside components if needed,
   // although they already use useVideoConfig internally.
@@ -15,8 +15,13 @@ export const AionNexusPromo = () => {
   // Adjusted pacing to make the internal events faster but stretch the holding times slightly
   // to maintain the 1 minute requirement while keeping the "action" fast.
 
+  // Apply a filter based on the theme to generate visual alternatives
+  const filterStyle = theme === "purple" ? { filter: "hue-rotate(60deg)" } :
+                      theme === "green" ? { filter: "hue-rotate(150deg)" } :
+                      theme === "red" ? { filter: "hue-rotate(300deg)" } : {};
+
   return (
-    <AbsoluteFill className="bg-zinc-950 overflow-hidden">
+    <AbsoluteFill className="bg-zinc-950 overflow-hidden" style={filterStyle}>
       {/* Background Music */}
       <Audio src={staticFile("bgm.mp3")} volume={0.8} />
 

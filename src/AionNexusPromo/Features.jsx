@@ -60,7 +60,7 @@ export const Features = () => {
   const { width } = useVideoConfig();
   const isVertical = width < 1200;
 
-  const fadeOutOpacity = interpolate(frame, [250, 280], [1, 0], {
+  const fadeOutOpacity = interpolate(frame, [420, 450], [1, 0], {
     extrapolateRight: "clamp",
   });
 

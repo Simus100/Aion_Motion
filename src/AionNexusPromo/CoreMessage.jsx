@@ -19,7 +19,7 @@ export const CoreMessage = () => {
 
   const words = ["AI", "Tecnologia", "Geopolitica", "Finanza", "Mercati", "Startup", "Scienza"];
 
-  const fadeOutOpacity = interpolate(frame, [200, 240], [1, 0], {
+  const fadeOutOpacity = interpolate(frame, [420, 450], [1, 0], {
     extrapolateRight: "clamp",
   });
 

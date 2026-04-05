@@ -15,7 +15,7 @@ export const AiFocus = () => {
     extrapolateRight: "clamp",
   });
 
-  const fadeOutOpacity = interpolate(frame, [250, 280], [1, 0], {
+  const fadeOutOpacity = interpolate(frame, [270, 300], [1, 0], {
     extrapolateRight: "clamp",
   });
 

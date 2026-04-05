@@ -50,6 +50,23 @@ export const RemotionRoot = () => {
         width={1920}
         height={1080}
       />
+      <Composition
+        id="AionNexusPromo-Square"
+        component={AionNexusPromo}
+        durationInFrames={1800}
+        fps={30}
+        width={1080}
+        height={1080}
+      />
+      <Composition
+        id="AionNexusPromo-Purple"
+        component={AionNexusPromo}
+        durationInFrames={1800}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ theme: "purple" }}
+      />
     </>
   );
 };

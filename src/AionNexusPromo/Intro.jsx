@@ -28,7 +28,8 @@ export const Intro = () => {
     extrapolateRight: "clamp",
   });
 
-  const outOpacity = interpolate(frame, [150, 180], [1, 0], {
+  // Extended hold before fade out to reduce empty space between scenes
+  const outOpacity = interpolate(frame, [270, 300], [1, 0], {
     extrapolateRight: "clamp",
   });
 
