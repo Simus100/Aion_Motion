@@ -1,0 +1,3 @@
+## 2026-04-08 - [Remotion Hot Render Loop Optimization]
+ **Learning:** [In Remotion, components re-render on every single frame. Small inefficiencies, such as splitting a string or recalculating identical physics simulations inside the render body, are massively amplified during a render cycle. These redundant computations during the hot render loop unnecessarily burn CPU cycles and slow down the video encoding process.]
+ **Action:** [Always memoize derived static data with useMemo, and avoid duplicate physics or state calculations if they resolve to the same values per frame. Be extremely mindful of the hot render loop's multiplier effect on performance.]

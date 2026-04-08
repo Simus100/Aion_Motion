@@ -12,16 +12,8 @@ export const Logo = () => {
   const videoConfig = useVideoConfig();
   const frame = useCurrentFrame();
 
+  // Bolt ⚡: Removed redundant rotationDevelopment as it was identical to development
   const development = spring({
-    config: {
-      damping: 100,
-      mass: 0.5,
-    },
-    fps: videoConfig.fps,
-    frame,
-  });
-
-  const rotationDevelopment = spring({
     config: {
       damping: 100,
       mass: 0.5,
@@ -51,21 +43,21 @@ export const Logo = () => {
       }}
     >
       <Arc
-        rotateProgress={rotationDevelopment}
+        rotateProgress={development}
         progress={development}
         rotation={30}
       />
       <Arc
-        rotateProgress={rotationDevelopment}
+        rotateProgress={development}
         rotation={90}
         progress={development}
       />
       <Arc
-        rotateProgress={rotationDevelopment}
+        rotateProgress={development}
         rotation={-30}
         progress={development}
       />
-      <Atom scale={rotationDevelopment} />
+      <Atom scale={development} />
     </AbsoluteFill>
   );
 };
