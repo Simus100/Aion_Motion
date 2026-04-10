@@ -1,0 +1,3 @@
+## 2024-04-10 - Optimizing Remotion Hot Render Loop and ID Generation
+**Learning:** Remotion components re-render on every single frame. Complex derived data calculations like string splitting inside the render method cause severe garbage collection pressure and performance bottlenecks. Additionally, using state and `random()` to generate SVG gradient IDs is an anti-pattern as it adds state initialization overhead when rendering many identical components concurrently.
+**Action:** Always memoize derived data and static calculations that don't depend on the current frame using `useMemo` when working with Remotion. Furthermore, always utilize React's built-in `useId()` hook for generating unique identifiers within components instead of custom random string generation.
