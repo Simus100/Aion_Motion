@@ -38,7 +38,7 @@ export const Title = ({ titleText, titleColor }) => {
 
         return (
           <span
-            key={t}
+            key={`${t}-${i}`}
             style={{
               ...word,
               color: titleColor,
