@@ -14,38 +14,21 @@ export const CallToActionScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Subtle entrance animation
-  const opacity = interpolate(
-    frame,
-    [30, 90], // Starts fading in at 1 second, fully visible at 3 seconds
-    [0, 1],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  // "Esplora il nostro catalogo"
+  const text = "Esplora il nostro catalogo".split(" ");
 
-  const scale = spring({
-    fps,
-    frame: frame - 30,
-    config: {
-      damping: 200,
-      stiffness: 10,
-    },
-    durationInFrames: 200,
+  // Background fade-in
+  const bgOpacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
   });
-
-  const animatedScale = interpolate(scale, [0, 1], [0.95, 1]);
-
-  // Letters animation (Optional: making the letters slightly spread out as they enter)
-  const letterSpacing = interpolate(
-    frame,
-    [30, 150],
-    [0.2, 0.4],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
 
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#FFFFF0", // Ivory
+        // A sophisticated ivory background with a subtle darker vignette in the center
+        background: "radial-gradient(circle at center, #FFFFF0 0%, #E8E8DD 100%)",
+        opacity: bgOpacity,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -54,28 +37,73 @@ export const CallToActionScene: React.FC = () => {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          opacity,
-          transform: `scale(${animatedScale})`,
+          flexDirection: "row",
+          gap: "24px",
+          flexWrap: "wrap",
+          padding: "0 100px",
         }}
       >
-        <h1
-          style={{
-            fontFamily,
-            color: "#000000",
-            fontSize: "80px",
-            fontWeight: "400",
-            letterSpacing: `${letterSpacing}em`,
-            textAlign: "center",
-            margin: 0,
-            textTransform: "uppercase",
-          }}
-        >
-          Esplora il nostro catalogo
-        </h1>
+        {text.map((word, wordIndex) => {
+          // Staggered delay for each word
+          const delay = wordIndex * 15 + 20;
+
+          // Blur effect
+          const blurAmount = interpolate(
+            frame - delay,
+            [0, 30],
+            [20, 0],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          );
+
+          // Opacity fade in
+          const wordOpacity = interpolate(
+            frame - delay,
+            [0, 25],
+            [0, 1],
+            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+          );
+
+          // Spring physics for translation Y
+          const translateY = interpolate(
+            spring({
+              frame: frame - delay,
+              fps,
+              config: { damping: 200, mass: 1 },
+            }),
+            [0, 1],
+            [40, 0]
+          );
+
+          return (
+            <span
+              key={`${word}-${wordIndex}`}
+              style={{
+                fontFamily,
+                color: "#1A1A1A", // Off-black for a softer editorial look
+                fontSize: "72px",
+                fontWeight: "500",
+                letterSpacing: "0.05em",
+                textTransform: "uppercase",
+                opacity: wordOpacity,
+                filter: `blur(${blurAmount}px)`,
+                transform: `translateY(${translateY}px)`,
+                display: "inline-block",
+                lineHeight: "1.2",
+              }}
+            >
+              {word}
+            </span>
+          );
+        })}
       </AbsoluteFill>
 
-      {/* Atmospheric audio track - we will place a dummy file or fetch one */}
-      {/* <Audio src={staticFile("atmospheric.mp3")} volume={0.5} /> */}
+      {/* A subtle cinematic overlay (noise/grain effect could go here, but keeping it CSS only for elegance) */}
+      <AbsoluteFill
+        style={{
+          boxShadow: "inset 0 0 150px rgba(0,0,0,0.03)",
+          pointerEvents: "none",
+        }}
+      />
     </AbsoluteFill>
   );
 };

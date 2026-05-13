@@ -23,6 +23,9 @@ vi.mock("@remotion/google-fonts/PlayfairDisplay", () => ({
 describe("CallToActionScene", () => {
   it("renders the text correctly", () => {
     const { getByText } = render(<CallToActionScene />);
-    expect(getByText("Esplora il nostro catalogo")).toBeTruthy();
+    expect(getByText("Esplora")).toBeTruthy();
+    expect(getByText("il")).toBeTruthy();
+    expect(getByText("nostro")).toBeTruthy();
+    expect(getByText("catalogo")).toBeTruthy();
   });
 });
