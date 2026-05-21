@@ -108,5 +108,74 @@ export const AnimatedText: React.FC<{
     );
   }
 
+  if (animationStyle === 'blur-in') {
+    return (
+      <div className={className} style={style}>
+        {words.map((word, index) => {
+          const wordDelay = delay + index * 3;
+          const wordFrame = Math.max(0, frame - wordDelay);
+          const progress = spring({
+            frame: wordFrame,
+            fps,
+            config: { damping: 14, mass: 0.8 },
+          });
+
+          const blur = interpolate(progress, [0, 1], [10, 0], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          });
+
+          return (
+            <span
+              key={`${word}-${index}`}
+              style={{
+                display: 'inline-block',
+                opacity: progress,
+                filter: `blur(${blur}px)`,
+                marginRight: '0.25em',
+              }}
+            >
+              {word}
+            </span>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (animationStyle === 'reveal') {
+    return (
+      <div className={className} style={style}>
+        {words.map((word, index) => {
+          const wordDelay = delay + index * 4;
+          const wordFrame = Math.max(0, frame - wordDelay);
+          const progress = spring({
+            frame: wordFrame,
+            fps,
+            config: { damping: 16, mass: 0.5 },
+          });
+
+          const translateY = interpolate(progress, [0, 1], [100, 0], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          });
+
+          return (
+            <div key={`${word}-${index}`} style={{ display: 'inline-block', overflow: 'hidden', marginRight: '0.25em', verticalAlign: 'bottom' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  transform: `translateY(${translateY}%)`,
+                }}
+              >
+                {word}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return <div className={className} style={style}>{text}</div>;
 };

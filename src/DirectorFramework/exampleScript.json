@@ -1,48 +1,78 @@
 {
-  "id": "example-promo",
-  "title": "Aion Motion Promo",
+  "id": "example-promo-v2",
+  "title": "Aion Motion Promo Advanced",
   "audioUrl": "audio.mp3",
   "audioVolume": 0.5,
   "scenes": [
     {
       "id": "scene-1",
       "type": "title",
-      "durationInFrames": 90,
-      "title": "Benvenuto nel Director Framework",
-      "subtitle": "Generazione Video Data-Driven",
-      "backgroundColor": "#1e293b",
+      "durationInFrames": 120,
+      "title": "Director Framework 2.0",
+      "subtitle": "Generazione Video Data-Driven & Avanzata",
+      "backgroundConfig": {
+        "type": "gradient",
+        "color1": "#1e3a8a",
+        "color2": "#0f172a"
+      },
       "textColor": "#ffffff",
-      "animationStyle": "fade-up"
+      "animationStyle": "blur-in"
     },
     {
       "id": "scene-2",
       "type": "media",
-      "durationInFrames": 120,
-      "transitionIn": "slide-left",
+      "durationInFrames": 150,
+      "transitionIn": "slide-up",
       "mediaUrl": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1920&auto=format&fit=crop",
       "mediaType": "image",
-      "overlayText": "Creiamo formati dinamici",
-      "overlayAnimation": "scale-in"
+      "overlayText": "Animazioni Ken Burns ed Effetti Cinematografici",
+      "overlayAnimation": "reveal",
+      "kenBurns": true
     },
     {
       "id": "scene-3",
-      "type": "split",
-      "durationInFrames": 120,
-      "transitionIn": "slide-up",
-      "leftText": "Codice + Direzione Artistica",
-      "rightMediaUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1080&auto=format&fit=crop",
-      "rightMediaType": "image",
-      "backgroundColor": "#0f172a"
+      "type": "bullets",
+      "durationInFrames": 180,
+      "transitionIn": "slide-left",
+      "title": "Nuove Funzionalità",
+      "bullets": [
+        "Layout Citazione per recensioni ed evidenze",
+        "Layout Elenco puntato per spiegazioni",
+        "Background animati (Gradient, Noise, Solid)",
+        "Transizioni e Testi Cinematic (Blur-in, Reveal)"
+      ],
+      "backgroundConfig": {
+        "type": "noise",
+        "color1": "#064e3b"
+      }
     },
     {
       "id": "scene-4",
-      "type": "title",
-      "durationInFrames": 90,
+      "type": "quote",
+      "durationInFrames": 150,
       "transitionIn": "fade",
-      "title": "Pronto per il mercato.",
-      "backgroundColor": "#000000",
-      "textColor": "#38bdf8",
-      "animationStyle": "typewriter"
+      "quote": "Il sistema ora propone video coerenti, stilisticamente belli e ottimamente perfezionati. Qualcosa di professionale e vendibile.",
+      "author": "Utente",
+      "textColor": "#facc15",
+      "backgroundConfig": {
+        "type": "solid",
+        "color1": "#000000"
+      },
+      "animationStyle": "blur-in"
+    },
+    {
+      "id": "scene-5",
+      "type": "split",
+      "durationInFrames": 120,
+      "transitionIn": "slide-right",
+      "leftText": "Codice + Direzione Artistica",
+      "rightMediaUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1080&auto=format&fit=crop",
+      "rightMediaType": "image",
+      "backgroundConfig": {
+        "type": "gradient",
+        "color1": "#4c1d95",
+        "color2": "#0f172a"
+      }
     }
   ]
 }

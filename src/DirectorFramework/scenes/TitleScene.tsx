@@ -1,7 +1,7 @@
 import React from 'react';
-import { AbsoluteFill } from 'remotion';
 import { TitleSceneData } from '../schema';
 import { AnimatedText } from '../components/AnimatedText';
+import { Background } from '../components/Background';
 
 export const TitleScene: React.FC<{ data: TitleSceneData }> = ({ data }) => {
   const {
@@ -9,12 +9,14 @@ export const TitleScene: React.FC<{ data: TitleSceneData }> = ({ data }) => {
     subtitle,
     textColor = 'white',
     backgroundColor = 'black',
+    backgroundConfig,
     animationStyle = 'fade-up',
   } = data;
 
   return (
-    <AbsoluteFill
-      style={{ backgroundColor }}
+    <Background
+      config={backgroundConfig}
+      backgroundColor={backgroundColor}
       className="flex flex-col items-center justify-center p-8 text-center"
     >
       <AnimatedText
@@ -33,6 +35,6 @@ export const TitleScene: React.FC<{ data: TitleSceneData }> = ({ data }) => {
           style={{ color: textColor }}
         />
       )}
-    </AbsoluteFill>
+    </Background>
   );
 };
