@@ -7,6 +7,8 @@ import { VideoScript, SceneData, TransitionType } from './schema';
 import { TitleScene } from './scenes/TitleScene';
 import { MediaScene } from './scenes/MediaScene';
 import { SplitScene } from './scenes/SplitScene';
+import { QuoteScene } from './scenes/QuoteScene';
+import { BulletsScene } from './scenes/BulletsScene';
 import { loadFont } from "@remotion/google-fonts/Montserrat";
 
 loadFont();
@@ -19,6 +21,10 @@ const renderScene = (scene: SceneData) => {
       return <MediaScene data={scene} />;
     case 'split':
       return <SplitScene data={scene} />;
+    case 'quote':
+      return <QuoteScene data={scene} />;
+    case 'bullets':
+      return <BulletsScene data={scene} />;
     default:
       return null;
   }

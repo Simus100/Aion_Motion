@@ -1,6 +1,15 @@
-export type SceneType = 'title' | 'media' | 'split';
-export type AnimationStyle = 'fade-up' | 'scale-in' | 'typewriter' | 'none';
+export type SceneType = 'title' | 'media' | 'split' | 'quote' | 'bullets';
+export type AnimationStyle = 'fade-up' | 'scale-in' | 'typewriter' | 'blur-in' | 'reveal' | 'none';
 export type TransitionType = 'fade' | 'slide-left' | 'slide-right' | 'slide-up' | 'slide-down' | 'none';
+
+export type BackgroundType = 'solid' | 'gradient' | 'noise';
+
+export interface BackgroundConfig {
+  type: BackgroundType;
+  color1?: string;
+  color2?: string;
+  opacity?: number;
+}
 
 export interface BaseSceneData {
   id: string;
@@ -15,6 +24,7 @@ export interface TitleSceneData extends BaseSceneData {
   subtitle?: string;
   textColor?: string;
   backgroundColor?: string;
+  backgroundConfig?: BackgroundConfig;
   animationStyle?: AnimationStyle;
 }
 
@@ -24,6 +34,7 @@ export interface MediaSceneData extends BaseSceneData {
   mediaType: 'image' | 'video';
   overlayText?: string;
   overlayAnimation?: AnimationStyle;
+  kenBurns?: boolean;
 }
 
 export interface SplitSceneData extends BaseSceneData {
@@ -32,9 +43,30 @@ export interface SplitSceneData extends BaseSceneData {
   rightMediaUrl: string;
   rightMediaType: 'image' | 'video';
   backgroundColor?: string;
+  backgroundConfig?: BackgroundConfig;
 }
 
-export type SceneData = TitleSceneData | MediaSceneData | SplitSceneData;
+export interface QuoteSceneData extends BaseSceneData {
+  type: 'quote';
+  quote: string;
+  author?: string;
+  textColor?: string;
+  backgroundColor?: string;
+  backgroundConfig?: BackgroundConfig;
+  animationStyle?: AnimationStyle;
+}
+
+export interface BulletsSceneData extends BaseSceneData {
+  type: 'bullets';
+  title: string;
+  bullets: string[];
+  textColor?: string;
+  backgroundColor?: string;
+  backgroundConfig?: BackgroundConfig;
+  animationStyle?: AnimationStyle;
+}
+
+export type SceneData = TitleSceneData | MediaSceneData | SplitSceneData | QuoteSceneData | BulletsSceneData;
 
 export interface VideoScript {
   id: string;

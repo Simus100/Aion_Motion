@@ -1,7 +1,8 @@
 import React from 'react';
-import { AbsoluteFill, Img, Video } from 'remotion';
+import { Img, Video } from 'remotion';
 import { SplitSceneData } from '../schema';
 import { AnimatedText } from '../components/AnimatedText';
+import { Background } from '../components/Background';
 
 export const SplitScene: React.FC<{ data: SplitSceneData }> = ({ data }) => {
   const {
@@ -9,10 +10,11 @@ export const SplitScene: React.FC<{ data: SplitSceneData }> = ({ data }) => {
     rightMediaUrl,
     rightMediaType,
     backgroundColor = 'black',
+    backgroundConfig,
   } = data;
 
   return (
-    <AbsoluteFill className="flex flex-row" style={{ backgroundColor }}>
+    <Background config={backgroundConfig} backgroundColor={backgroundColor} className="flex flex-row">
       <div className="w-1/2 h-full flex flex-col items-center justify-center p-12">
         <AnimatedText
           text={leftText}
@@ -27,6 +29,6 @@ export const SplitScene: React.FC<{ data: SplitSceneData }> = ({ data }) => {
           <Video src={rightMediaUrl} className="w-full h-full" style={{ objectFit: 'cover' }} loop muted />
         )}
       </div>
-    </AbsoluteFill>
+    </Background>
   );
 };
