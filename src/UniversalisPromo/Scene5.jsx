@@ -3,6 +3,8 @@ import { Globe, Mail, Phone } from "lucide-react";
 import { noise2D } from "@remotion/noise";
 import React from "react";
 
+const PARTICLES = new Array(30).fill(0);
+
 export const Scene5 = () => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
@@ -21,7 +23,7 @@ export const Scene5 = () => {
     <AbsoluteFill className="bg-black flex flex-col items-center justify-center p-24 overflow-hidden">
       {/* Exploding particle background */}
       <AbsoluteFill>
-        {new Array(30).fill(0).map((_, i) => {
+        {PARTICLES.map((_, i) => {
           const moveProgress = spring({
             frame: frame - i,
             fps,
