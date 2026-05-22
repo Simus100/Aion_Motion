@@ -3,6 +3,7 @@ import { Composition } from "remotion";
 import { PromoVideo } from "./PromoVideo";
 import { UniversalisPromo } from "./UniversalisPromo/index";
 import { UniarkiveHero } from "./UniarkiveHero/index";
+import { UniarkiveBrandVideo } from "./UniarkiveBrandVideo/index";
 import { DirectorComposition } from "./DirectorFramework/DirectorComposition";
 import { VideoScript } from "./DirectorFramework/schema";
 import exampleScriptData from "./DirectorFramework/exampleScript.json";
@@ -28,6 +29,14 @@ export const RemotionRoot: React.FC = () => {
         id="PromoVideo"
         component={PromoVideo}
         durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="UniarkiveBrandVideo"
+        component={UniarkiveBrandVideo}
+        durationInFrames={750}
         fps={30}
         width={1920}
         height={1080}
