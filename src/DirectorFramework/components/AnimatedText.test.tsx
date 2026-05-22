@@ -1,4 +1,3 @@
-import React from "react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render } from "@testing-library/react";
 import { AnimatedText } from "./AnimatedText";
@@ -16,7 +15,14 @@ vi.mock("remotion", async () => {
 describe("AnimatedText", () => {
   beforeEach(() => {
     vi.mocked(remotion.useCurrentFrame).mockReturnValue(60);
-    vi.mocked(remotion.useVideoConfig).mockReturnValue({ fps: 30, durationInFrames: 300, width: 1920, height: 1080 } as any);
+    vi.mocked(remotion.useVideoConfig).mockReturnValue({
+      fps: 30,
+      durationInFrames: 300,
+      width: 1920,
+      height: 1080,
+      id: "composition",
+      defaultProps: {},
+    } as unknown as remotion.VideoConfig);
   });
 
   it("renders 'none' animation style correctly", () => {
