@@ -1,6 +1,5 @@
 import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate } from "remotion";
 import { Trail } from "@remotion/motion-blur";
-import { CheckCircle2 } from "lucide-react";
 
 const Step = ({ num, title, desc, delay }) => {
   const frame = useCurrentFrame();
