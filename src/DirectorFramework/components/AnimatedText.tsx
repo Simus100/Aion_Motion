@@ -13,6 +13,7 @@ export const AnimatedText: React.FC<{
   const { fps } = useVideoConfig();
 
   const words = useMemo(() => text.split(' '), [text]);
+  const chars = useMemo(() => text.split(''), [text]);
 
   if (animationStyle === 'none') {
     return <div className={className} style={style}>{text}</div>;
@@ -87,7 +88,6 @@ export const AnimatedText: React.FC<{
   }
 
   if (animationStyle === 'typewriter') {
-    const chars = text.split('');
     return (
       <div className={className} style={style}>
         {chars.map((char, index) => {
