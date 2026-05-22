@@ -1,6 +1,30 @@
 import React, { useMemo } from 'react';
-import { useCurrentFrame, useVideoConfig, spring, interpolate } from 'remotion';
+import { useCurrentFrame, useVideoConfig, spring, interpolate, SpringConfig } from 'remotion';
 import { AnimationStyle } from '../schema';
+
+const calculateWordProgress = ({
+  frame,
+  fps,
+  delay,
+  index,
+  delayMultiplier,
+  springConfig,
+}: {
+  frame: number;
+  fps: number;
+  delay: number;
+  index: number;
+  delayMultiplier: number;
+  springConfig: Partial<SpringConfig>;
+}) => {
+  const wordDelay = delay + index * delayMultiplier;
+  const wordFrame = Math.max(0, frame - wordDelay);
+  return spring({
+    frame: wordFrame,
+    fps,
+    config: springConfig,
+  });
+};
 
 export const AnimatedText: React.FC<{
   text: string;
@@ -23,12 +47,13 @@ export const AnimatedText: React.FC<{
     return (
       <div className={className} style={style}>
         {words.map((word, index) => {
-          const wordDelay = delay + index * 3;
-          const wordFrame = Math.max(0, frame - wordDelay);
-          const progress = spring({
-            frame: wordFrame,
+          const progress = calculateWordProgress({
+            frame,
             fps,
-            config: { damping: 12 },
+            delay,
+            index,
+            delayMultiplier: 3,
+            springConfig: { damping: 12 },
           });
 
           const translateY = interpolate(progress, [0, 1], [50, 0], {
@@ -58,12 +83,13 @@ export const AnimatedText: React.FC<{
     return (
       <div className={className} style={style}>
         {words.map((word, index) => {
-          const wordDelay = delay + index * 2;
-          const wordFrame = Math.max(0, frame - wordDelay);
-          const progress = spring({
-            frame: wordFrame,
+          const progress = calculateWordProgress({
+            frame,
             fps,
-            config: { damping: 10, mass: 0.8 },
+            delay,
+            index,
+            delayMultiplier: 2,
+            springConfig: { damping: 10, mass: 0.8 },
           });
 
           return (
@@ -112,12 +138,13 @@ export const AnimatedText: React.FC<{
     return (
       <div className={className} style={style}>
         {words.map((word, index) => {
-          const wordDelay = delay + index * 3;
-          const wordFrame = Math.max(0, frame - wordDelay);
-          const progress = spring({
-            frame: wordFrame,
+          const progress = calculateWordProgress({
+            frame,
             fps,
-            config: { damping: 14, mass: 0.8 },
+            delay,
+            index,
+            delayMultiplier: 3,
+            springConfig: { damping: 14, mass: 0.8 },
           });
 
           const blur = interpolate(progress, [0, 1], [10, 0], {
@@ -147,12 +174,13 @@ export const AnimatedText: React.FC<{
     return (
       <div className={className} style={style}>
         {words.map((word, index) => {
-          const wordDelay = delay + index * 4;
-          const wordFrame = Math.max(0, frame - wordDelay);
-          const progress = spring({
-            frame: wordFrame,
+          const progress = calculateWordProgress({
+            frame,
             fps,
-            config: { damping: 16, mass: 0.5 },
+            delay,
+            index,
+            delayMultiplier: 4,
+            springConfig: { damping: 16, mass: 0.5 },
           });
 
           const translateY = interpolate(progress, [0, 1], [100, 0], {

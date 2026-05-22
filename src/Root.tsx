@@ -13,6 +13,12 @@ const calculateTotalDuration = (script: VideoScript) => {
   return script.scenes.reduce((acc, scene) => acc + scene.durationInFrames, 0);
 };
 
+const DIRECTOR_FORMATS = [
+  { id: "DirectorHorizontal", width: 1920, height: 1080 },
+  { id: "DirectorVertical", width: 1080, height: 1920 },
+  { id: "DirectorSquare", width: 1080, height: 1080 },
+];
+
 export const RemotionRoot: React.FC = () => {
   const durationInFrames = calculateTotalDuration(exampleScript) || 300;
 
@@ -44,33 +50,18 @@ export const RemotionRoot: React.FC = () => {
       />
 
       {/* Director Framework Compositions */}
-      <Composition
-        id="DirectorHorizontal"
-        component={DirectorComposition}
-        durationInFrames={durationInFrames}
-        fps={30}
-        width={1920}
-        height={1080}
-        defaultProps={{ script: exampleScript }}
-      />
-      <Composition
-        id="DirectorVertical"
-        component={DirectorComposition}
-        durationInFrames={durationInFrames}
-        fps={30}
-        width={1080}
-        height={1920}
-        defaultProps={{ script: exampleScript }}
-      />
-      <Composition
-        id="DirectorSquare"
-        component={DirectorComposition}
-        durationInFrames={durationInFrames}
-        fps={30}
-        width={1080}
-        height={1080}
-        defaultProps={{ script: exampleScript }}
-      />
+      {DIRECTOR_FORMATS.map((format) => (
+        <Composition
+          key={format.id}
+          id={format.id}
+          component={DirectorComposition}
+          durationInFrames={durationInFrames}
+          fps={30}
+          width={format.width}
+          height={format.height}
+          defaultProps={{ script: exampleScript }}
+        />
+      ))}
     </>
   );
 };
