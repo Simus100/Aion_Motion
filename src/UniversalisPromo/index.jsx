@@ -1,4 +1,4 @@
-import { AbsoluteFill, Series, Audio, staticFile } from "remotion";
+import { AbsoluteFill, Audio, staticFile } from "remotion";
 import { Scene1 } from "./Scene1";
 import { Scene2 } from "./Scene2";
 import { Scene3 } from "./Scene3";
