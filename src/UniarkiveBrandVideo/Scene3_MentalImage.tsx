@@ -3,8 +3,9 @@ import {
   AbsoluteFill,
   interpolate,
   useCurrentFrame,
+  Easing,
 } from "remotion";
-import { loadFont } from "@remotion/google-fonts/PlayfairDisplay";
+import { loadFont } from "@remotion/google-fonts/Montserrat";
 
 const { fontFamily } = loadFont();
 
@@ -12,9 +13,9 @@ export const Scene3_MentalImage: React.FC = () => {
   const frame = useCurrentFrame();
 
   const phrases = [
-    "Biblioteca segreta.",
-    "Archivio digitale elegante.",
-    "Dossier riservato."
+    "BIBLIOTECA SEGRETA.",
+    "ARCHIVIO DIGITALE ELEGANTE.",
+    "DOSSIER RISERVATO.",
   ];
 
   const phraseDuration = 90; // Frames per phrase
@@ -39,15 +40,20 @@ export const Scene3_MentalImage: React.FC = () => {
 
           const opacity = interpolate(
             frame,
-            [startFrame, startFrame + 15, endFrame - 15, endFrame],
+            [startFrame, startFrame + 20, endFrame - 20, endFrame],
             [0, 1, 1, 0],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
+            {
+              easing: Easing.inOut(Easing.ease),
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            }
           );
 
-          const scale = interpolate(
+          // Subtle tracking effect (expanding letter spacing slightly over time)
+          const letterSpacingAmount = interpolate(
             frame,
             [startFrame, endFrame],
-            [0.95, 1.05],
+            [0.15, 0.25],
             { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
           );
 
@@ -58,16 +64,15 @@ export const Scene3_MentalImage: React.FC = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 opacity,
-                transform: `scale(${scale})`,
               }}
             >
               <span
                 style={{
                   fontFamily,
-                  color: "#9CA3AF", // Grigio freddo
-                  fontSize: "64px",
-                  fontWeight: "400",
-                  letterSpacing: "0.05em",
+                  color: "#9CA3AF", // Cold Grey
+                  fontSize: "36px",
+                  fontWeight: "300",
+                  letterSpacing: `${letterSpacingAmount}em`,
                 }}
               >
                 {phrase}
@@ -76,13 +81,6 @@ export const Scene3_MentalImage: React.FC = () => {
           );
         })}
       </AbsoluteFill>
-
-      <AbsoluteFill
-        style={{
-          boxShadow: "inset 0 0 200px rgba(0,0,0,0.8)",
-          pointerEvents: "none",
-        }}
-      />
     </AbsoluteFill>
   );
 };

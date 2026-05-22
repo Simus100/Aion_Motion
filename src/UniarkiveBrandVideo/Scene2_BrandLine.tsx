@@ -2,9 +2,8 @@ import React from "react";
 import {
   AbsoluteFill,
   interpolate,
-  spring,
   useCurrentFrame,
-  useVideoConfig,
+  Easing,
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/PlayfairDisplay";
 
@@ -12,9 +11,24 @@ const { fontFamily } = loadFont();
 
 export const Scene2_BrandLine: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
 
-  const text = "Storie di archivi inesplorati.".split(" ");
+  // Smooth fade-in
+  const textOpacity = interpolate(frame, [0, 45], [0, 1], {
+    easing: Easing.inOut(Easing.ease),
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const translateY = interpolate(frame, [0, 60], [15, 0], {
+    easing: Easing.out(Easing.cubic),
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const scale = interpolate(frame, [0, 150], [1.02, 1.0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
 
   return (
     <AbsoluteFill
@@ -28,67 +42,23 @@ export const Scene2_BrandLine: React.FC = () => {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "row",
-          gap: "24px",
-          flexWrap: "wrap",
-          padding: "0 100px",
+          transform: `scale(${scale}) translateY(${translateY}px)`,
+          opacity: textOpacity,
         }}
       >
-        {text.map((word, wordIndex) => {
-          const delay = wordIndex * 15 + 10;
-
-          const blurAmount = interpolate(
-            frame - delay,
-            [0, 30],
-            [15, 0],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-          );
-
-          const wordOpacity = interpolate(
-            frame - delay,
-            [0, 25],
-            [0, 1],
-            { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-          );
-
-          const translateY = interpolate(
-            spring({
-              frame: frame - delay,
-              fps,
-              config: { damping: 200, mass: 1 },
-            }),
-            [0, 1],
-            [30, 0]
-          );
-
-          return (
-            <span
-              key={`${word}-${wordIndex}`}
-              style={{
-                fontFamily,
-                color: "#F2F2F2", // Bianco caldo / Grigio freddo chiaro
-                fontSize: "72px",
-                fontWeight: "400",
-                letterSpacing: "0.02em",
-                opacity: wordOpacity,
-                filter: `blur(${blurAmount}px)`,
-                transform: `translateY(${translateY}px)`,
-                display: "inline-block",
-                lineHeight: "1.2",
-              }}
-            >
-              {word}
-            </span>
-          );
-        })}
+        <span
+          style={{
+            fontFamily,
+            color: "#F2F2F2", // Cold White
+            fontSize: "64px",
+            fontWeight: "400",
+            letterSpacing: "0.03em",
+            textAlign: "center",
+          }}
+        >
+          Storie di archivi inesplorati.
+        </span>
       </AbsoluteFill>
-
-      <AbsoluteFill
-        style={{
-          boxShadow: "inset 0 0 200px rgba(0,0,0,0.8)",
-          pointerEvents: "none",
-        }}
-      />
     </AbsoluteFill>
   );
 };

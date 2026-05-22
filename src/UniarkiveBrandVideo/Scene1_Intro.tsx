@@ -2,9 +2,8 @@ import React from "react";
 import {
   AbsoluteFill,
   interpolate,
-  spring,
   useCurrentFrame,
-  useVideoConfig,
+  Easing,
 } from "remotion";
 import { loadFont } from "@remotion/google-fonts/PlayfairDisplay";
 
@@ -12,32 +11,21 @@ const { fontFamily } = loadFont();
 
 export const Scene1_Intro: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
 
-  // Opacity fade in for the background
-  const bgOpacity = interpolate(frame, [0, 15], [0, 1], {
+  const textOpacity = interpolate(frame, [15, 60], [0, 1], {
+    easing: Easing.inOut(Easing.ease),
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Scale down slightly to give a cinematic entrance
-  const scale = interpolate(
-    spring({
-      frame,
-      fps,
-      config: { damping: 200, mass: 1 },
-    }),
-    [0, 1],
-    [1.1, 1]
-  );
-
-  // Blur reduction
-  const blurAmount = interpolate(frame, [0, 45], [20, 0], {
+  const blurAmount = interpolate(frame, [15, 75], [10, 0], {
+    easing: Easing.out(Easing.cubic),
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const textOpacity = interpolate(frame, [15, 45], [0, 1], {
+  // Slow continuous zoom-in (Dolly effect)
+  const scale = interpolate(frame, [0, 150], [1.0, 1.05], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -45,8 +33,7 @@ export const Scene1_Intro: React.FC = () => {
   return (
     <AbsoluteFill
       style={{
-        backgroundColor: "#050814", // Blu notte
-        opacity: bgOpacity,
+        backgroundColor: "#050814",
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -61,10 +48,10 @@ export const Scene1_Intro: React.FC = () => {
         <span
           style={{
             fontFamily,
-            color: "#C5A059", // Oro pallido
-            fontSize: "120px",
-            fontWeight: "500",
-            letterSpacing: "0.15em",
+            color: "#C5A059", // Pale Gold
+            fontSize: "130px",
+            fontWeight: "400",
+            letterSpacing: "0.2em",
             textTransform: "uppercase",
             opacity: textOpacity,
             filter: `blur(${blurAmount}px)`,
@@ -73,14 +60,6 @@ export const Scene1_Intro: React.FC = () => {
           UNIARKIVE
         </span>
       </AbsoluteFill>
-
-      {/* Subtle cinematic overlay */}
-      <AbsoluteFill
-        style={{
-          boxShadow: "inset 0 0 200px rgba(0,0,0,0.8)",
-          pointerEvents: "none",
-        }}
-      />
     </AbsoluteFill>
   );
 };

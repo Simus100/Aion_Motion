@@ -3,25 +3,31 @@ import {
   AbsoluteFill,
   interpolate,
   useCurrentFrame,
+  Easing,
 } from "remotion";
-import { loadFont } from "@remotion/google-fonts/PlayfairDisplay";
+import { loadFont as loadPlayfair } from "@remotion/google-fonts/PlayfairDisplay";
+import { loadFont as loadMontserrat } from "@remotion/google-fonts/Montserrat";
 
-const { fontFamily } = loadFont();
+const { fontFamily: playfairFont } = loadPlayfair();
+const { fontFamily: montserratFont } = loadMontserrat();
 
 export const Scene5_CTA: React.FC = () => {
   const frame = useCurrentFrame();
 
-  const ctaOpacity = interpolate(frame, [15, 45], [0, 1], {
+  const logoOpacity = interpolate(frame, [15, 60], [0, 1], {
+    easing: Easing.inOut(Easing.ease),
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const ctaTranslateY = interpolate(frame, [15, 45], [20, 0], {
+  const ctaOpacity = interpolate(frame, [60, 105], [0, 1], {
+    easing: Easing.inOut(Easing.ease),
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const logoOpacity = interpolate(frame, [60, 90], [0, 0.5], {
+  const lineScale = interpolate(frame, [60, 105], [0, 1], {
+    easing: Easing.out(Easing.cubic),
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -38,60 +44,59 @@ export const Scene5_CTA: React.FC = () => {
         style={{
           justifyContent: "center",
           alignItems: "center",
-          transform: `translateY(${ctaTranslateY}px)`,
-          opacity: ctaOpacity,
+          flexDirection: "column",
+          gap: "60px",
         }}
       >
+        {/* Main Brand Logo */}
+        <span
+          style={{
+            fontFamily: playfairFont,
+            color: "#C5A059", // Pale Gold
+            fontSize: "80px",
+            fontWeight: "400",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            opacity: logoOpacity,
+          }}
+        >
+          UNIARKIVE
+        </span>
+
+        {/* Minimalist CTA */}
         <div
           style={{
-            border: "2px solid #C5A059", // Oro pallido
-            padding: "24px 64px",
-            borderRadius: "4px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "16px",
+            opacity: ctaOpacity,
           }}
         >
           <span
             style={{
-              fontFamily,
+              fontFamily: montserratFont,
               color: "#F2F2F2",
-              fontSize: "48px",
-              fontWeight: "400",
-              letterSpacing: "0.1em",
+              fontSize: "24px",
+              fontWeight: "300",
+              letterSpacing: "0.4em",
               textTransform: "uppercase",
             }}
           >
             Apri l'archivio
           </span>
+          {/* Accent Line */}
+          <div
+            style={{
+              width: "40px",
+              height: "1px",
+              backgroundColor: "#C5A059",
+              transform: `scaleX(${lineScale})`,
+              transformOrigin: "center",
+            }}
+          />
         </div>
       </AbsoluteFill>
-
-      <AbsoluteFill
-        style={{
-          justifyContent: "flex-end",
-          alignItems: "center",
-          paddingBottom: "100px",
-          opacity: logoOpacity,
-        }}
-      >
-        <span
-          style={{
-            fontFamily,
-            color: "#C5A059",
-            fontSize: "32px",
-            fontWeight: "500",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-          }}
-        >
-          UNIARKIVE
-        </span>
-      </AbsoluteFill>
-
-      <AbsoluteFill
-        style={{
-          boxShadow: "inset 0 0 200px rgba(0,0,0,0.8)",
-          pointerEvents: "none",
-        }}
-      />
     </AbsoluteFill>
   );
 };
