@@ -2,6 +2,8 @@ import { AbsoluteFill, useCurrentFrame, useVideoConfig, spring, interpolate } fr
 import { noise3D } from "@remotion/noise";
 import React from "react";
 
+const NOISE_LAYERS = Array.from({ length: 10 }, (_, i) => i);
+
 export const Scene1 = () => {
   const frame = useCurrentFrame();
   const { fps, width, height } = useVideoConfig();
@@ -20,7 +22,7 @@ export const Scene1 = () => {
     <AbsoluteFill className="bg-black flex items-center justify-center">
       {/* Dynamic Noise Background */}
       <AbsoluteFill>
-        {new Array(10).fill(0).map((_, i) => {
+        {NOISE_LAYERS.map((i) => {
           const x = noise3D("seed1", i, frame * 0.005, 0) * width;
           const y = noise3D("seed2", i, frame * 0.005, 0) * height;
           const size = interpolate(noise3D("seed3", i, frame * 0.01, 0), [-1, 1], [300, 800]);
