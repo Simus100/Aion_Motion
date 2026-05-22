@@ -1,3 +1,3 @@
-## 2025-02-09 - Remotion Render Loop Array Allocation
- **Learning:** Creating static arrays inside Remotion render loops (e.g., `new Array(10).fill(0)`) triggers unnecessary garbage collection and CPU overhead because Remotion components re-render on every frame.
- **Action:** Extract static array allocations or other non-frame-dependent calculations outside the component as module-level constants or use `useMemo` to protect the hot render loop.
+## 2024-05-22 - React Hook placement in conditional rendering
+ **Learning:** React hooks like `useMemo` cannot be called conditionally. When fixing an unmemoized variable that only exists inside an `if` block, the memoized version must be hoisted to the top level of the component alongside other unconditional hooks, even if the result is only utilized when that `if` block is executed.
+ **Action:** Always review the placement of new hooks to ensure they are at the top level and not wrapped inside `if` statements or early returns.
